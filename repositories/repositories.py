@@ -137,3 +137,22 @@ class ItemRepository:
                 JOIN Rarity   r  ON i.RarirtID   = r.RarityID
                 ORDER BY i.ItemName
             """).fetchall
+            
+    def get_by_id(self, item_id: int):
+        with get_db() as conn:
+            return _fetchone_or_404(conn, """
+                SELECT
+                    i.ItemID,
+                    i.ItemName,
+                    it.ItemTypeID,
+                    it.TypeName,
+                    r.RarityID,
+                    r.RarityName
+                FROM Item i
+                JOIN ItemType it ON i.ItemTypeID = it.ItemTypeID
+                JOIN Rarity   r  ON i.RarityID   = r.RarityID
+                WHERE i.ItemID = ?
+            """, (item_id,))
+
+    def create(self, data: dict) -> int:
+        with get_db
