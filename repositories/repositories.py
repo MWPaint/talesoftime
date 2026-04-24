@@ -73,4 +73,67 @@ class CharacterRepository:
             cursor = conn.execute("""
                 INSERT INTO Character (CharacterName, ClassID, SpeciesID, AlignmentID, Level)
                 VALUES (?, ?, ?, ?, ?)
-            """)
+            """, (
+                data["CharacterName"],
+                data["ClassID"],
+                data["SpeciesID"],
+                data["AlignmentID"],
+                data["Level"],
+            ))
+            conn.commit()
+            return cursor.lastrowid
+
+    def update(self, character_id: int, data: dict) -> None:
+        with get_db() as conn:
+            conn.execute("""
+                UPDATE Character
+                SET CharacterName = ?,
+                    ClassID       = ?,
+                    SpeciesID     = ?,
+                    AlignmentID   = ?,
+                    Level         = ?
+                WHERE CharacterID =?
+            """, (
+                data["CharacterName"],
+                data["ClassID"],
+                data["SpeciesID"],
+                data["AlignmentID"],
+                data["Level"],
+                character_id,
+            ))
+            conn.commit()
+
+    def delete(self, character_id: int) -> None:
+        with get_db() as conn:
+            conn.execute(
+                "DELETE FROM Chracter WHERE CharacterID = ?",
+                (character_id,)
+            )
+            conn.commit()
+
+    def count(self) -> int:
+        with get_db() as conn:
+            return conn.execute(
+                "SELECT COUNT(*) FROM Character"
+            ).fetchone()[0]
+
+
+#Item
+
+class ItemRepository:
+
+    def get_all(self) -> list:
+        with get_db() as conn:
+            return conn.execute("""
+                SELECT
+                    i.ItemID,
+                    i.ItemName,
+                    it.ItemTypeID,
+                    it.TypeName,
+                    r.RarityID,
+                    r.RarityName
+                FROM Item i
+                JOIN ItemType it ON i.ItemTypeID = it.ItemTypeID
+                JOIN Rarity   r  ON i.RarirtID   = r.RarityID
+                ORDER BY i.ItemName
+            """).fetchall
