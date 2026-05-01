@@ -62,11 +62,11 @@ LOOKUP_SEED_DATA = {
     ],
     "Difficulty": [
         {"DifficultyName": "Novice"},
-        {"DifficultyName": "Novice"},
-        {"DifficultyName": "Novice"},
-        {"DifficultyName": "Novice"},
-        {"DifficultyName": "Novice"},
-        {"DifficultyName": "Novice"},
+        {"DifficultyName": "Apprentice"},
+        {"DifficultyName": "Journeyman"},
+        {"DifficultyName": "Expert"},
+        {"DifficultyName": "Master"},
+        {"DifficultyName": "Legendary"},
     ],
 }
 
@@ -126,6 +126,7 @@ def seed_core_data(cursor):
     # ── Items ─────────────────────────────────────────────────────────────────
     item_rows = [
         {"ItemName": "Iron Sword",          "ItemTypeID": item_types["Weapon"]["ItemTypeID"],  "RarityID": rarities["Common"]["RarityID"]},
+    ]
 
     for row in item_rows:
         cursor.execute("""

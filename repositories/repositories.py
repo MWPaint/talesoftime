@@ -106,7 +106,7 @@ class CharacterRepository:
     def delete(self, character_id: int) -> None:
         with get_db() as conn:
             conn.execute(
-                "DELETE FROM Chracter WHERE CharacterID = ?",
+                "DELETE FROM Character WHERE CharacterID = ?",
                 (character_id,)
             )
             conn.commit()
@@ -136,7 +136,7 @@ class ItemRepository:
                 JOIN ItemType it ON i.ItemTypeID = it.ItemTypeID
                 JOIN Rarity   r  ON i.RarityID   = r.RarityID
                 ORDER BY i.ItemName
-            """).fetchall
+            """).fetchall()
 
     def get_by_id(self, item_id: int):
         with get_db() as conn:
@@ -371,7 +371,7 @@ class LookupRepository:
     def get_rarities(self) -> list:
         with get_db() as conn:
             return conn.execute(
-                "SELECT RarityID, RarityName FROM Rarity ORDER BY RarrityID"
+                "SELECT RarityID, RarityName FROM Rarity ORDER BY RarityID"
             ).fetchall()
 
     def get_regions(self) -> list:
