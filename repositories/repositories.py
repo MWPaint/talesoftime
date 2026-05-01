@@ -134,7 +134,7 @@ class ItemRepository:
                     r.RarityName
                 FROM Item i
                 JOIN ItemType it ON i.ItemTypeID = it.ItemTypeID
-                JOIN Rarity   r  ON i.RarirtID   = r.RarityID
+                JOIN Rarity   r  ON i.RarityID   = r.RarityID
                 ORDER BY i.ItemName
             """).fetchall
 
@@ -170,7 +170,7 @@ class ItemRepository:
 
     def count(self) -> int:
         with get_db() as conn:
-            return conn.execute("SELECT COUNT(*) FORM Item").fetchone()[0]
+            return conn.execute("SELECT COUNT(*) FROM Item").fetchone()[0]
 
 
 #Quest
@@ -189,7 +189,7 @@ class QuestRepository:
                     d.DifficultyName
                 FROM Quest q
                 JOIN Region     r ON q.RegionID     = r.RegionID
-                JOIN Difficulty d ON q.DifficultyID = d.DiffcultyID
+                JOIN Difficulty d ON q.DifficultyID = d.DifficultyID
                 ORDER BY q.QuestName
             """).fetchall()
 
@@ -205,7 +205,7 @@ class QuestRepository:
                     d.DifficultyName
                 FROM Quest q
                 JOIN Region     r ON q.RegionID     = r.RegionID
-                JOIN Difficulty d ON q.DifficultyID = d.DiffcultyID
+                JOIN Difficulty d ON q.DifficultyID = d.DifficultyID
                 WHERE q.QuestID = ?
             """, (quest_id,))
 
