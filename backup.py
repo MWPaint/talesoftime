@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 from flask import current_app
 
-def backup_sqlite_db()
+def backup_sqlite_db():
     """
     Creates a timestamped backup of the SQLite databse using the
     official SQLite backup API.
@@ -41,14 +41,14 @@ def backup_sqlite_db()
 # Self exectution logic
 # This block runs only when you execute 'python backup.py' directly
 # It handles the Flask context so you don't have to worry about it in the Task Scheduler.
-if __name__ "__main__":
+if __name__ == "__main__":
     try:
         # Import your app factory (adjust 'app' if your main file is named differenctly)
         # This assumes you have a file named app.py with a create_app() function.
         from app import create_app
 
         # Initialises the app and run the backup within its context
-        flask_app - create_app()
+        flask_app = create_app()
         with flask_app.app_context():
             print("Starting automated backup process...")
             result = backup_sqlite_db()

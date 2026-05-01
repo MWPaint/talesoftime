@@ -63,7 +63,7 @@ class CharacterRepository:
                 FROM Character c
                 JOIN CharacterClass cc ON c.ClassID     = cc.ClassID
                 JOIN Species        s  ON c.SpeciesID   = s.SpeciesID
-                JOIN Alignment      a  ON a.Alignment   = a.AlignmentID
+                JOIN Alignment      a  ON c.AlignmentID   = a.AlignmentID
                 WHERE c.CharacterID = ?
             """, (character_id,))
 
@@ -212,7 +212,7 @@ class QuestRepository:
     def create(self, data: dict) -> int:
         with get_db() as conn:
             cursor = conn.execute("""
-                INSERT INTO QUEST (QuestName, RegionID, DifficultyID)
+                INSERT INTO Quest (QuestName, RegionID, DifficultyID)
                 VALUES (?, ?, ?)
             """, (data["QuestName"], data["RegionID"], data["DifficultyID"]))
             conn.commit()
@@ -276,7 +276,7 @@ class InventoryRepository:
             else:
                 conn.execute("""
                     INSERT INTO Inventory (CharacterID, ItemID, Quantity)
-                    VALUES (?, ?, /)
+                    VALUES (?, ?, ?)
                 """, (character_id, item_id, quantity))
 
             conn.commit()
