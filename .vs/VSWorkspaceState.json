@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\database",
+    "\\models",
+    "\\repositories",
+    "\\services"
+  ],
+  "SelectedNode": "\\models\\models.py",
+  "PreviewInSolutionExplorer": false
+}
