@@ -17,6 +17,7 @@ DB_PATH = os.path.normpath(os.environ.get("DATABASE_PATH", os.path.join(_HERE, "
 
 
 def get_db() -> sqlite3.Connection:
+    os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
     """
     Return a new SQLite connection with row_factory set so that
     all query results behave like dicts (row["ColumnName"]).
@@ -40,7 +41,7 @@ def get_db() -> sqlite3.Connection:
 
 _SCHEMA = """
 
--Lookup / Reference tables-
+-- Lookup / Reference tables
 
 CREATE TABLE IF NOT EXISTS CharacterClass (
     ClassID     INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -78,7 +79,7 @@ CREATE TABLE IF NOT EXISTS Difficulty (
     DifficultyName VARCHAR(50) NOT NULL UNIQUE
 );
 
--Core entities-
+-- Core entities
 
 CREATE TABLE IF NOT EXISTS Character (
     CharacterID   INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -93,10 +94,10 @@ CREATE TABLE IF NOT EXISTS Character (
 );
 
 CREATE TABLE IF NOT EXISTS Item (
-    ItemID      INTEGER PRIMARY KEY AUTOINCREMENT,
-    ItemName    VARCHAR(100) NOT NULL,
-    ItemTypeID  INTEGER NOT NULL,
-    RarityID    INTEGER NOT NULL,
+    ItemID     INTEGER PRIMARY KEY AUTOINCREMENT,
+    ItemName   VARCHAR(100) NOT NULL,
+    ItemTypeID INTEGER NOT NULL,
+    RarityID   INTEGER NOT NULL,
     FOREIGN KEY (ItemTypeID) REFERENCES ItemType(ItemTypeID),
     FOREIGN KEY (RarityID)   REFERENCES Rarity(RarityID)
 );
@@ -110,7 +111,7 @@ CREATE TABLE IF NOT EXISTS Quest (
     FOREIGN KEY (DifficultyID)   REFERENCES Difficulty(DifficultyID)
 );
 
--Join tables-
+-- Join tables
 
 CREATE TABLE IF NOT EXISTS Inventory (
     InventoryID    INTEGER PRIMARY KEY AUTOINCREMENT,
