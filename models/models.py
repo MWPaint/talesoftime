@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS Inventory (
     CharacterID    INTEGER NOT NULL,
     ItemID         INTEGER NOT NULL,
     Quantity       INTEGER NOT NULL DEFAULT 1,
-    FOREIGN KEY (CharacterID) REFERENCES Character(CharacterID),
+    FOREIGN KEY (CharacterID) REFERENCES Character(CharacterID) ON DELETE CASCADE,
     FOREIGN KEY (ItemID)      REFERENCES Item(ItemID)
 );
 
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS CharacterQuest (
     CharacterID      INTEGER NOT NULL,
     QuestID          INTEGER NOT NULL,
     CompletionDate   DATETIME,
-    FOREIGN KEY (CharacterID) REFERENCES Character(CharacterID),
+    FOREIGN KEY (CharacterID) REFERENCES Character(CharacterID) ON DELETE CASCADE,
     FOREIGN KEY (QuestID)     REFERENCES Quest(QuestID)
 );
 
